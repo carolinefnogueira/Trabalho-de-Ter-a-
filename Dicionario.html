@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dicionário de Dados Conceitual — LaSabore</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;color:#222;line-height:1.6;padding:30px}
+.container{max-width:1200px;margin:0 auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.08)}
+h1{text-align:center;margin-bottom:10px;color:#222}
+.introducao{text-align:center;margin-bottom:40px;color:#666}
+.entidade{margin-bottom:40px}
+.entidade h2{background:#222;color:#fff;padding:12px 18px;border-radius:8px 8px 0 0;font-size:20px}
+.associativa h2{background:#444}
+.tabela-container{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:#fff}
+th{background:#e9ecef;color:#222;text-align:left;padding:12px;border:1px solid #ccc}
+td{padding:12px;border:1px solid #ddd;vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+tr:hover{background:#eef2f5}
+.padronizacao{margin-top:20px;padding:20px;background:#f1f3f5;border-left:5px solid #222;border-radius:5px}
+.padronizacao h2{margin-bottom:10px}
+.padronizacao p{margin-bottom:10px}
+footer{text-align:center;margin-top:40px;color:#777;font-size:14px}
+@media(max-width:768px){
+body{padding:15px}.container{padding:20px}h1{font-size:25px}
+.entidade h2{font-size:18px}th,td{font-size:14px;padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Dicionário de Dados Conceitual</h1>
+<p class="introducao">Dicionário de dados do sistema de gestão de pedidos, produção, estoque e entregas da organização LaSabore.</p>
+
+<section class="entidade"><h2>Entidade: Usuários</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_usuario</td><td>Identificador único do usuário do sistema</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>nome</td><td>Nome do usuário responsável pelos registros</td><td>Obrigatório</td></tr>
+<tr><td>email</td><td>E-mail utilizado para identificação e acesso</td><td>Obrigatório e deve ser único</td></tr>
+<tr><td>senha_hash</td><td>Senha armazenada de forma protegida</td><td>Obrigatório; não deve ser armazenada em texto simples</td></tr>
+<tr><td>cargo</td><td>Função exercida pelo usuário na organização</td><td>Obrigatório</td></tr>
+<tr><td>ativo</td><td>Indica se o usuário pode utilizar o sistema</td><td>Obrigatório; deve assumir verdadeiro ou falso</td></tr>
+<tr><td>criado_em</td><td>Data de criação do cadastro do usuário</td><td>Obrigatório e gerado pelo sistema</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Clientes</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_cliente</td><td>Identificador único do cliente</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>nome</td><td>Nome do cliente</td><td>Obrigatório</td></tr>
+<tr><td>telefone</td><td>Telefone principal para contato</td><td>Obrigatório</td></tr>
+<tr><td>email</td><td>E-mail para contato</td><td>Opcional</td></tr>
+<tr><td>endereco</td><td>Endereço de entrega do cliente</td><td>Obrigatório quando houver entrega</td></tr>
+<tr><td>numero</td><td>Número do endereço</td><td>Obrigatório quando houver endereço informado</td></tr>
+<tr><td>complemento</td><td>Complemento do endereço</td><td>Opcional</td></tr>
+<tr><td>bairro</td><td>Bairro do cliente</td><td>Obrigatório quando houver entrega</td></tr>
+<tr><td>cidade</td><td>Cidade do cliente</td><td>Obrigatório quando houver entrega</td></tr>
+<tr><td>observacoes</td><td>Informações adicionais sobre o cliente</td><td>Opcional</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Categorias</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_categoria</td><td>Identificador único da categoria</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>nome</td><td>Nome da categoria de produtos</td><td>Obrigatório</td></tr>
+<tr><td>descricao</td><td>Descrição da categoria</td><td>Opcional</td></tr>
+<tr><td>ativo</td><td>Indica se a categoria está disponível para uso</td><td>Obrigatório; deve assumir verdadeiro ou falso</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Produtos</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_produto</td><td>Identificador único do produto</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_categoria</td><td>Identifica a categoria à qual o produto pertence</td><td>Obrigatório e deve referenciar uma categoria cadastrada</td></tr>
+<tr><td>nome</td><td>Nome do produto comercializado</td><td>Obrigatório</td></tr>
+<tr><td>descricao</td><td>Descrição e características do produto</td><td>Opcional</td></tr>
+<tr><td>preco_venda</td><td>Preço de venda do produto</td><td>Obrigatório e maior ou igual a zero</td></tr>
+<tr><td>custo</td><td>Custo estimado ou registrado do produto</td><td>Opcional e não pode ser negativo</td></tr>
+<tr><td>ativo</td><td>Indica se o produto está disponível para venda</td><td>Obrigatório; deve assumir verdadeiro ou falso</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Ingredientes</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_ingrediente</td><td>Identificador único do ingrediente</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>nome</td><td>Nome do ingrediente utilizado na produção</td><td>Obrigatório</td></tr>
+<tr><td>unidade_medida</td><td>Unidade usada para controlar o ingrediente</td><td>Obrigatório; deve ser compatível com a quantidade controlada</td></tr>
+<tr><td>quantidade_estoque</td><td>Quantidade atual disponível em estoque</td><td>Obrigatório e não deve assumir valor negativo</td></tr>
+<tr><td>estoque_minimo</td><td>Quantidade mínima utilizada como referência para reposição</td><td>Obrigatório e maior ou igual a zero</td></tr>
+<tr><td>custo_unitario</td><td>Custo de uma unidade do ingrediente</td><td>Opcional e não pode ser negativo</td></tr>
+<tr><td>ativo</td><td>Indica se o ingrediente está disponível para utilização</td><td>Obrigatório; deve assumir verdadeiro ou falso</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Pedidos</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_pedido</td><td>Identificador único do pedido</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_cliente</td><td>Identifica o cliente que realizou o pedido</td><td>Obrigatório e deve referenciar um cliente cadastrado</td></tr>
+<tr><td>id_usuario</td><td>Identifica o usuário responsável pelo registro do pedido</td><td>Obrigatório e deve referenciar um usuário ativo</td></tr>
+<tr><td>data_hora</td><td>Data e hora do registro do pedido</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>canal</td><td>Canal utilizado para receber o pedido</td><td>Obrigatório; deve utilizar valores controlados</td></tr>
+<tr><td>status</td><td>Situação atual do pedido</td><td>Obrigatório; novo, confirmado, em preparo, pronto, saiu para entrega, entregue ou cancelado</td></tr>
+<tr><td>subtotal</td><td>Soma dos valores dos itens antes dos acréscimos e descontos</td><td>Obrigatório e calculado a partir dos itens</td></tr>
+<tr><td>desconto</td><td>Valor de desconto aplicado ao pedido</td><td>Opcional e não pode ser negativo</td></tr>
+<tr><td>taxa_entrega</td><td>Valor cobrado pela entrega</td><td>Opcional e não pode ser negativo</td></tr>
+<tr><td>total</td><td>Valor final do pedido</td><td>Obrigatório e calculado a partir do subtotal, desconto e taxa de entrega</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade associativa"><h2>Entidade Associativa: Itens_Pedido</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_item</td><td>Identificador único do item do pedido</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_pedido</td><td>Identifica o pedido ao qual o item pertence</td><td>Obrigatório</td></tr>
+<tr><td>id_produto</td><td>Identifica o produto incluído no pedido</td><td>Obrigatório</td></tr>
+<tr><td>quantidade</td><td>Quantidade solicitada do produto</td><td>Obrigatório e maior que zero</td></tr>
+<tr><td>preco_unitario</td><td>Preço do produto no momento do pedido</td><td>Obrigatório e maior ou igual a zero</td></tr>
+<tr><td>observacao</td><td>Observação ou instrução específica do item</td><td>Opcional</td></tr>
+<tr><td>subtotal</td><td>Valor total do item</td><td>Calculado: quantidade × preco_unitario</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade associativa"><h2>Entidade Associativa: Fichas_Tecnicas</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_ficha</td><td>Identificador único do registro da ficha técnica</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_produto</td><td>Identifica o produto relacionado à ficha técnica</td><td>Obrigatório</td></tr>
+<tr><td>id_ingrediente</td><td>Identifica o ingrediente utilizado no produto</td><td>Obrigatório</td></tr>
+<tr><td>quantidade</td><td>Quantidade do ingrediente utilizada na composição do produto</td><td>Obrigatório e maior que zero</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Pagamentos</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_pagamento</td><td>Identificador único do pagamento</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_pedido</td><td>Identifica o pedido relacionado ao pagamento</td><td>Obrigatório</td></tr>
+<tr><td>metodo</td><td>Método utilizado para realizar o pagamento</td><td>Obrigatório; deve utilizar valores controlados</td></tr>
+<tr><td>valor</td><td>Valor registrado no pagamento</td><td>Obrigatório e maior que zero</td></tr>
+<tr><td>status</td><td>Situação do pagamento</td><td>Obrigatório; pendente, pago, cancelado ou estornado</td></tr>
+<tr><td>data_hora</td><td>Data e hora do registro do pagamento</td><td>Obrigatório e gerado pelo sistema</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Movimentacoes_Estoque</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_movimentacao</td><td>Identificador único da movimentação de estoque</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_ingrediente</td><td>Identifica o ingrediente movimentado</td><td>Obrigatório</td></tr>
+<tr><td>id_usuario</td><td>Identifica o usuário responsável pela movimentação</td><td>Obrigatório</td></tr>
+<tr><td>tipo</td><td>Tipo de movimentação realizada</td><td>Obrigatório; entrada ou saída</td></tr>
+<tr><td>quantidade</td><td>Quantidade movimentada</td><td>Obrigatório e maior que zero</td></tr>
+<tr><td>motivo</td><td>Justificativa ou origem da movimentação</td><td>Obrigatório</td></tr>
+<tr><td>data_hora</td><td>Data e hora da movimentação</td><td>Obrigatório e gerado pelo sistema</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Producao_Cozinha</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_producao</td><td>Identificador único do registro de produção</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_pedido</td><td>Identifica o pedido que será produzido</td><td>Obrigatório e deve referenciar um pedido existente</td></tr>
+<tr><td>prioridade</td><td>Prioridade de produção do pedido</td><td>Obrigatório; deve utilizar valores controlados</td></tr>
+<tr><td>etapa</td><td>Etapa atual do processo de cozinha</td><td>Obrigatório</td></tr>
+<tr><td>status</td><td>Situação atual da produção</td><td>Obrigatório; aguardando, em preparo, pronto ou finalizado</td></tr>
+<tr><td>inicio</td><td>Data e hora de início da produção</td><td>Opcional até o início do preparo</td></tr>
+<tr><td>fim</td><td>Data e hora de conclusão da produção</td><td>Opcional até a finalização</td></tr>
+</tbody></table></div></section>
+
+<section class="entidade"><h2>Entidade: Entregas</h2><div class="tabela-container"><table>
+<thead><tr><th>Atributo</th><th>Descrição</th><th>Regra de negócio associada</th></tr></thead><tbody>
+<tr><td>id_entrega</td><td>Identificador único da entrega</td><td>Obrigatório e gerado pelo sistema</td></tr>
+<tr><td>id_pedido</td><td>Identifica o pedido que será entregue</td><td>Obrigatório e deve referenciar um pedido existente</td></tr>
+<tr><td>entregador</td><td>Nome ou identificação do responsável pela entrega</td><td>Obrigatório quando a entrega for realizada</td></tr>
+<tr><td>endereco_entrega</td><td>Endereço destinado à entrega do pedido</td><td>Obrigatório</td></tr>
+<tr><td>status</td><td>Situação atual da entrega</td><td>Obrigatório; aguardando, em rota, entregue ou cancelada</td></tr>
+<tr><td>saida</td><td>Data e hora de saída para entrega</td><td>Opcional até a saída</td></tr>
+<tr><td>entrega</td><td>Data e hora efetiva da entrega</td><td>Opcional até a conclusão</td></tr>
+</tbody></table></div></section>
+
+<section class="padronizacao">
+<h2>Padronização do Dicionário</h2>
+<p>Os atributos identificadores (id_) são utilizados como chaves primárias ou estrangeiras para estabelecer a identificação e os relacionamentos entre as entidades.</p>
+<p>Os atributos classificados como obrigatórios representam informações essenciais para o funcionamento do processo correspondente.</p>
+<p>Os valores financeiros devem ser tratados como valores monetários, enquanto quantidades devem permitir valores compatíveis com a unidade de medida utilizada.</p>
+<p>Atributos de status possuem valores controlados para evitar informações inconsistentes.</p>
+<p>As entidades associativas Itens_Pedido e Fichas_Tecnicas permitem representar os relacionamentos entre pedidos e produtos e entre produtos e ingredientes, evitando repetição de informações.</p>
+</section>
+
+<footer>Dicionário de Dados Conceitual — Projeto de Modelagem de Banco de Dados — LaSabore</footer>
+</div>
+</body>
+</html>
